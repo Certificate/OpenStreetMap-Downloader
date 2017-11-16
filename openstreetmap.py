@@ -78,11 +78,15 @@ yTile = 1
 # "finalImage"-image variable. The indexes are by pixels hence the *256 multiplier on X and Y.
 while(yTile != yTileBotCorner):
     lon = topLeftLon
+    
+    # This loop generates and saves each vertical row.
     while (lon <= botRightLon + 0.05):
         xTile, yTile , img = createPic(lat, lon, zoom)
         lon += 0.045
         finalImage.paste(img, ((x*256), (y*256)))
         x += 1
+        
+        
     lat, NOT_USED = num2deg(xTile, yTile, zoom)
     x = 0
     y += 1
