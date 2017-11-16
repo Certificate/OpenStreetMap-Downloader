@@ -9,7 +9,6 @@ import math
 # A Python script that downloads a map on a level 13 zoom from OpenStreetMap. Input parameters are (1, 2)
 # latitude and longitude of the first chosen point and (3, 4) lat and lon of the second point.
 # The program will generate a map between these points as a rectangle.
-# 5th parameter determines the filename of the saved image file.
 
 # both converters are from OSM's own docuentation.
 def deg2num(lat_deg, lon_deg, zoom):
@@ -33,7 +32,7 @@ def createPic(lat, lon, zoom):
     image = Image.open(io.BytesIO(urllib.request.urlopen(url).read()))
     return xTile, yTile, image
 
-# determines the zoom level of the pictures. Don't touch! Your temp folder will thank me.
+# determines the zoom level of the pictures.
 zoom = 13
 
 # Latitude and longitude of the top-left corner given by the command line arguments.
@@ -53,6 +52,7 @@ print("Working...")
 # Bottom-right corner x and y tiles.
 xTileBotCorner , yTileBotCorner = deg2num(botRightLat, botRightLon, zoom)
 
+# Calculating required rows and columns for the "big picture"
 coords0 = deg2num(topLeftLat, topLeftLon, zoom)
 coords1 = num2deg((coords0[0]), (coords0[1]), zoom)
 coords2 = num2deg((coords0[0]+1), (coords0[1]+1), zoom)
@@ -92,3 +92,7 @@ print("Done!")
 
 # Shows the generated picture. It's a temp file.
 finalImage.show()
+
+
+# You can also save the downloaded map to your computer. Uncomment to enable.
+#finalImage.save("OSM-Download, "PNG")
